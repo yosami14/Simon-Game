@@ -20,16 +20,24 @@ let randomBtn = () => {
 //Press A to start
 $(document).keypress(function() {
   if (!started) {
-    
     nextSequence();
     started = true;
   }
 });
 
+//Next Sequence
+function nextSequence(){
+  userSequence = [];
+  level++;
+  $("#level-title").text("Level " + level);
+  var currentBtn = randomBtn()
+  computerSequence.push(currentBtn);
+  $("#" + currentBtn).fadeIn(100).fadeOut(100).fadeIn(100);
+  playAudio(currentBtn);
+}
 
 //player click 
 $(".btn").click(function() {
-
   var userChosenColour = $(this).attr("id");
   userSequence.push(userChosenColour);
 
@@ -38,9 +46,12 @@ $(".btn").click(function() {
   checkAnswer(userSequence.length-1);
 });
 
+
+
+
+
 //compare answers
 function checkAnswer(currentLevel) {
-
     if (computerSequence[currentLevel] === userSequence[currentLevel]) {
       if (userSequence.length === computerSequence.length){
         setTimeout(function () {
@@ -60,16 +71,11 @@ function checkAnswer(currentLevel) {
     }
 }
 
-//Next Sequence
-function nextSequence(){
-  userSequence = [];
-  level++;
-  $("#level-title").text("Level " + level);
-  var currentBtn = randomBtn()
-  computerSequence.push(currentBtn);
-  $("#" + currentBtn).fadeIn(100).fadeOut(100).fadeIn(100);
-  playAudio(currentBtn);
-
+//gameover
+function gameOver() {
+  level = 0;
+  gamePattern = [];
+  started = false;
 }
 
 //Animation for Pressing btn
@@ -80,13 +86,6 @@ function animatePress(currentColor) {
   }, 100);
 }
 
-
-//gameover
-function gameOver() {
-  level = 0;
-  gamePattern = [];
-  started = false;
-}
 //Audio Switch
 function playAudio(key){
   switch(key){
