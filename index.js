@@ -18,7 +18,7 @@ let randomBtn = () => {
 };
 
 //Press A to start
-$(document).keypress(function() {
+$(document).click(function() {
   if (!started) {
     nextSequence();
     started = true;
@@ -74,7 +74,7 @@ function checkAnswer(currentLevel) {
 //gameover
 function gameOver() {
   level = 0;
-  gamePattern = [];
+  computerSequence = [];
   started = false;
 }
 
